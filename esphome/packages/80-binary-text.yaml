@@ -10,62 +10,62 @@ binary_sensor:
 
 
 # Speed Up Button — физическая кнопка на GPIO13, увеличивает скорость.
-#  - platform: gpio
-#    pin:
-#      number: 13
-#      mode: INPUT_PULLUP
-#      inverted: true
-#    name: "Speed Up Button"
-#    entity_category: diagnostic
-#    on_press:
-#      - button.press: speed_up_button_large
-#    filters:
-#      - delayed_on: 50ms
-#      - delayed_off: 50ms
+  - platform: gpio
+    pin:
+      number: 39
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Speed Up Button"
+    entity_category: diagnostic
+    on_press:
+      - button.press: speed_up_button_large
+    filters:
+      - delayed_on: 50ms
+      - delayed_off: 50ms
 
 
 # Speed Down Button — физическая кнопка на GPIO14, уменьшает скорость.
-#  - platform: gpio
-#    pin:
-#      number: 14
-#      mode: INPUT_PULLUP
-#      inverted: true
-#    name: "Speed Down Button"
-#    entity_category: diagnostic
-#    on_press:
-#      - button.press: speed_down_button_large
-#    filters:
-#      - delayed_on: 50ms
-#      - delayed_off: 50ms
+  - platform: gpio
+    pin:
+      number: 40
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Speed Down Button"
+    entity_category: diagnostic
+    on_press:
+      - button.press: speed_down_button_large
+    filters:
+      - delayed_on: 50ms
+      - delayed_off: 50ms
 
 
 # Incline Up Button — физическая кнопка на GPIO9, увеличивает наклон.
-#  - platform: gpio
-#    pin:
-#      number: 9
-#      mode: INPUT_PULLUP
-#      inverted: true
-#    name: "Incline Up Button"
-#    entity_category: diagnostic
-#    on_press:
-#      - button.press: incline_up_button
-#    filters:
-#      - delayed_on: 50ms
-#      - delayed_off: 50ms
+  - platform: gpio
+    pin:
+      number: 41
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Incline Up Button"
+    entity_category: diagnostic
+    on_press:
+      - button.press: incline_up_button
+    filters:
+      - delayed_on: 50ms
+      - delayed_off: 50ms
 
 # Incline Down Button — физическая кнопка на GPIO10, уменьшает наклон.
-#  - platform: gpio
-#    pin:
-#      number: 10
-#      mode: INPUT_PULLUP
-#      inverted: true
-#    name: "Incline Down Button"
-#    entity_category: diagnostic
-#    on_press:
-#      - button.press: incline_down_button
-#    filters:
-#      - delayed_on: 50ms
-#      - delayed_off: 50ms
+  - platform: gpio
+    pin:
+      number: 42
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Incline Down Button"
+    entity_category: diagnostic
+    on_press:
+      - button.press: incline_down_button
+    filters:
+      - delayed_on: 50ms
+      - delayed_off: 50ms
 
 
   - platform: nextion
