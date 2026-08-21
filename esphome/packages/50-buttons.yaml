@@ -121,7 +121,7 @@ button:
           if (id(motor_running)) {
             float current_incline = id(set_incline).state;
             float new_incline = current_incline + 1.0;
-            if (new_incline <= 15.0) {
+            if (new_incline <= 20.0) {
               id(set_incline).publish_state(new_incline);
               ESP_LOGI("treadmill", "Incline increased to %.1f%%", new_incline);
             }
