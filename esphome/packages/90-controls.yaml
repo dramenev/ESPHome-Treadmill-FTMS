@@ -261,7 +261,7 @@ number:
     name: "Treadmill Maximum Incline Level"
     id: treadmill_max_incline_level
     min_value: 1
-    max_value: 15
+    max_value: 20
     step: 1
     mode: box
     entity_category: config
