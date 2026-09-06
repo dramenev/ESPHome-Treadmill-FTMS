@@ -333,20 +333,29 @@ sensor:
     force_update: false
     update_interval: 5s
     filters:
-      - lambda: |-
-          if (x == 0.0) return NAN;   // игнорируем ложные нули
+      - lambda: |- // Ignore zeros
+          if (x == 0.0) return NAN;   
+          return x;
+      - lambda: |- // Return NaN to system after 3 failed attempts
+          static int nan_counter = 0;
+          if (isnan(x)) {
+            nan_counter++;
+            if (nan_counter >= 3) {
+              return x;
+            }
+            return id(temp).state;
+          }
+          nan_counter = 0;
           return x;
     on_value:
       then:
         - lambda: |-
+            static int last_sent_temp = -1000;
             float temp_value = id(temp).state;
             if (!isnan(temp_value)) {
               int tempmotor = (int)temp_value;
-
-              static int last_sent_temp = -1000;
               if (tempmotor != last_sent_temp) {
                 last_sent_temp = tempmotor;
-
                 if (id(current_page) == 1) {
                   id(display_nextion).set_component_value("speed.ntemp", tempmotor);
                   ESP_LOGI("Nextion", "Setting value for speed.ntemp = %d", tempmotor);
