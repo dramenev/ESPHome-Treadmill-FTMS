@@ -333,10 +333,10 @@ sensor:
     force_update: false
     update_interval: 5s
     filters:
-      - lambda: |- // Ignore zeros
+      - lambda: |- # Ignore zeros
           if (x == 0.0) return NAN;   
           return x;
-      - lambda: |- // Return NaN to system after 3 failed attempts
+      - lambda: |- # Return NaN to system after 3 failed attempts
           static int nan_counter = 0;
           if (isnan(x)) {
             nan_counter++;
