@@ -1,5 +1,5 @@
 interval:
-  - interval: 21s
+  - interval: 5s
     id: heart_rate_monitor_reconnection
     then:
       - if:
