@@ -3,7 +3,7 @@ interval:
     id: heart_rate_monitor_reconnection
     then:
       - if:
-        condition:
+          condition:
             lambda: 'return !id(fit_smart).connected();'
         then:
           - ble_client.disconnect:
