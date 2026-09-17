@@ -10,9 +10,10 @@ interval:
                 id: fit_smart
             - delay: 1s
             - lambda: |-
+                std::string heart_rate_monitor_macs_str = "${heart_rate_monitor_macs}";
                 std::vector<std::string> heart_rate_monitor_macs;
                 std::string mac;
-                std::stringstream macs_stream("${heart_rate_monitor_macs}");
+                std::stringstream macs_stream(heart_rate_monitor_macs_str);
                 while (std::getline(macs_stream, mac, ',')) {
                   heart_rate_monitor_macs.push_back(mac);
                 }
