@@ -1,14 +1,11 @@
 interval:
-  - interval: 10s
+  - interval: 21s
     id: heart_rate_monitor_reconnection
     then:
       - if:
           condition:
             lambda: 'return !id(fit_smart).connected();'
           then:
-            - ble_client.disconnect:
-                id: fit_smart
-            - delay: 1s
             - lambda: |-
                 std::string heart_rate_monitor_macs_str = "${heart_rate_monitor_macs}";
                 std::vector<std::string> heart_rate_monitor_macs;
@@ -38,9 +35,7 @@ interval:
                   current_mac_idx = 0;
                 }
             - delay: 500ms
-            - ble_client.connect:
-                id: fit_smart
-                timeout: 7s
+            - ble_client.connect: fit_smart
 
   # Глобальная защита двигателя от перегрева.
   # Работает независимо от открытой страницы Nextion.
