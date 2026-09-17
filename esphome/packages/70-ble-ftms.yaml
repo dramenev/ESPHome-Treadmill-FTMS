@@ -25,7 +25,6 @@ esp32_ble_tracker:
 #    - Публикует статус "Отключено".
 ble_client:
   - mac_address: '00:00:00:00:00:00'
-    auto_connect: false
     id: fit_smart
     on_connect:
       - text_sensor.template.publish:
