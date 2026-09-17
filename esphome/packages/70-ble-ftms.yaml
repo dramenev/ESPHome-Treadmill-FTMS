@@ -24,7 +24,8 @@ esp32_ble_tracker:
 #    - Публикует battery_level_sensor = 0.
 #    - Публикует статус "Отключено".
 ble_client:
-  - mac_address: !secret heart_rate_monitor_mac
+  - mac_address: '00:00:00:00:00:00'
+    auto_connect: false
     id: fit_smart
     on_connect:
       - text_sensor.template.publish:

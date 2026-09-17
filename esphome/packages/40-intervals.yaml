@@ -1,4 +1,45 @@
 interval:
+  - interval: 5s
+    id: heart_rate_monitor_reconnection
+    then:
+      - if:
+        condition:
+            lambda: 'return !id(fit_smart).connected();'
+        then:
+          - ble_client.disconnect:
+              id: fit_smart
+          - delay: 1s
+          - lambda: |-
+              std::vector<std::string> heart_rate_monitor_macs;
+              std::string mac;
+              std::stringstream macs_stream("${heart_rate_monitor_macs}");
+              while (std::getline(macs_stream, mac, ',')) {
+                heart_rate_monitor_macs.push_back(mac);
+              }
+              static int current_mac_idx = 0;
+              std::string current_mac = heart_rate_monitor_macs[current_mac_idx];
+              int mac_bytes[6];
+              bool valid = sscanf(current_mac, "%x:%x:%x:%x:%x:%x",
+                &mac_bytes[0], &mac_bytes[1], &mac_bytes[2],
+                &mac_bytes[3], &mac_bytes[4], &mac_bytes[5]) == 6;
+              if (!valid) {
+                ESP_LOGE("ble", "Failed to parse MAC: %s", current_mac);
+                return;
+              }
+              uint64_t mac_uint64 = 0;
+              for (int i = 0; i < 6; i++) {
+                  mac_uint64 = (mac_uint64 << 8) | mac_bytes[i];
+              }
+              id(fit_smart).set_address(mac_uint64);
+              ESP_LOGI("ble", "MAC updated to %s, attempting connection...", current_mac);
+              current_mac_idx++;
+              if (current_mac_idx >= heart_rate_monitor_macs.size()) {
+                current_mac_idx = 0;
+              }
+          - delay: 500ms
+          - ble_client.connect:
+              id: fit_smart
+
   # Глобальная защита двигателя от перегрева.
   # Работает независимо от открытой страницы Nextion.
   - interval: 2s
