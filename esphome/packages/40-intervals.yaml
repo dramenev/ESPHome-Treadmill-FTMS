@@ -1,5 +1,5 @@
 interval:
-  - interval: 5s
+  - interval: 10s
     id: heart_rate_monitor_reconnection
     then:
       - if:
@@ -40,6 +40,7 @@ interval:
             - delay: 500ms
             - ble_client.connect:
                 id: fit_smart
+                timeout: 7s
 
   # Глобальная защита двигателя от перегрева.
   # Работает независимо от открытой страницы Nextion.
