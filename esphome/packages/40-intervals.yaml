@@ -34,8 +34,6 @@ interval:
                 if (current_mac_idx >= heart_rate_monitor_macs.size()) {
                   current_mac_idx = 0;
                 }
-            - delay: 500ms
-            - ble_client.connect: fit_smart
 
   # Глобальная защита двигателя от перегрева.
   # Работает независимо от открытой страницы Nextion.
