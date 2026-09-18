@@ -1,6 +1,6 @@
 select:
   - platform: template
-    restore_value: yes
+    restore_value: no
     name: "HRM Profile"
     id: hrm_profile
     optimistic: true
