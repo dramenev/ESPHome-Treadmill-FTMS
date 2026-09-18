@@ -1,4 +1,41 @@
 select:
+  - platform: template
+    restore_value: yes
+    name: "HRM Profile"
+    id: hrm_profile
+    optimistic: true
+    options:
+      - "Dmitry"
+      - "Nataly"
+    initial_option: "Dmitry"
+    on_value:
+      - ble_client.disconnect: fit_smart
+      - delay: 1s
+      - lambda: |-
+          std::string profile = x;
+          std::string mac;
+          if (x == "Dmitry") {
+            mac = 'D9:4A:E6:C5:55:56';
+          } else if (x == "Nataly") {
+            mac = 'DB:C9:15:0F:26:09';
+          }
+          int mac_bytes[6];
+          bool valid = sscanf(mac.c_str(), "%x:%x:%x:%x:%x:%x",
+            &mac_bytes[0], &mac_bytes[1], &mac_bytes[2],
+            &mac_bytes[3], &mac_bytes[4], &mac_bytes[5]) == 6;
+          if (!valid) {
+            ESP_LOGE("ble", "Failed to parse MAC: %s", mac.c_str());
+            return;
+          }
+          uint64_t mac_uint64 = 0;
+          for (int i = 0; i < 6; i++) {
+              mac_uint64 = (mac_uint64 << 8) | mac_bytes[i];
+          }
+          id(fit_smart).set_address(mac_uint64);
+          ESP_LOGI("ble", "MAC updated to %s, attempting connection...", mac.c_str());
+      - delay: 500ms
+      - ble_client.connect: fit_smart
+
 # Профиль разгона дорожки (варианты: Soft / Normal / Fast / Technogym)
   - platform: template
     name: "Acceleration Profile"
