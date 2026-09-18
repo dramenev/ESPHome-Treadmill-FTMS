@@ -15,9 +15,9 @@ select:
           std::string profile = x;
           std::string mac;
           if (x == "Dmitry") {
-            mac = 'D9:4A:E6:C5:55:56';
+            mac = "D9:4A:E6:C5:55:56";
           } else if (x == "Nataly") {
-            mac = 'DB:C9:15:0F:26:09';
+            mac = "DB:C9:15:0F:26:09";
           }
           int mac_bytes[6];
           bool valid = sscanf(mac.c_str(), "%x:%x:%x:%x:%x:%x",
